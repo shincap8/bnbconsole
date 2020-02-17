@@ -31,9 +31,11 @@ def check_arg(arg):
     else:
         return False
 
+
 class HBNBCommand(cmd.Cmd):
     """Class HBNBCommand"""
     prompt = "(hbnb) "
+
     def do_EOF(self, line):
         """EOF command to exit the program\n"""
         return True
@@ -43,7 +45,8 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, arg):
-        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id\n"""
+        """Creates a new instance of BaseModel, saves it (to the JSON file)
+        and prints the id\n"""
         if len(arg) <= 0:
             print("** class name missing **")
         elif arg not in classes:
@@ -54,7 +57,8 @@ class HBNBCommand(cmd.Cmd):
             print(new.id)
 
     def do_show(self, arg):
-        """Prints the string representation of an instance based on the class name and id\n"""
+        """Prints the string representation of an instance based on the
+        class name and id\n"""
         if check_arg(arg) is False:
             my_list = arg.split(" ")
             key = my_list[0] + "." + my_list[1]
@@ -65,7 +69,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id (save the change into the JSON file).\n"""
+        """Deletes an instance based on the class name and id (save the
+        change into the JSON file).\n"""
         if check_arg(arg) is False:
             try:
                 my_list = arg.split(" ")
@@ -80,7 +85,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, arg):
-        """Prints all string representation of all instances based or not on the class name.\n"""
+        """Prints all string representation of all instances based
+        or not on the class name.\n"""
         allobjs = storage.all()
         objlist = []
         if len(arg) <= 0:
@@ -95,9 +101,10 @@ class HBNBCommand(cmd.Cmd):
                 if allclass == arg:
                     objlist.append(str(v))
             print(objlist)
-                
+
     def do_update(self, arg):
-        """Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file).\n"""
+        """Updates an instance based on the class name and id by
+        adding or updating attribute (save the change into the JSON file).\n"""
         if check_arg(arg) is False:
             my_list = arg.split(" ")
             key = my_list[0] + "." + my_list[1]
@@ -116,6 +123,7 @@ class HBNBCommand(cmd.Cmd):
                     allobjs = storage.reload()
             else:
                 print("** no instance found **")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
