@@ -1,5 +1,5 @@
 from models.engine.file_storage import FileStorage
-"""Comment"""
+"""to create a unique FileStorage instance"""
 
 storage = FileStorage()
 storage.reload()

@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-"""Comment"""
+"""Class Amenity"""
 from models.base_model import BaseModel
 
 
 class Amenity(BaseModel):
+    """Class Amenity"""
     name = ""
