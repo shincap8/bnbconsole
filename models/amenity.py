@@ -4,7 +4,7 @@ from models.base_model import BaseModel
 from datetime import datetime, date
 
 
-class User(BaseModel):
+class Amenity(BaseModel):
     def __init__(self, **kwargs):
         if len(kwargs) > 0:
             for k, v in kwargs.items():
@@ -13,8 +13,5 @@ class User(BaseModel):
                 elif k != "__class__":
                     setattr(self, k, v)
         else:
-            self.email = ""
-            self.password = ""
-            self.first_name = ""
-            self.last_name = ""
+            self.name = ""
             BaseModel.__init__(self)

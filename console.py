@@ -4,10 +4,16 @@ import cmd
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.city import City
+from models.state import State
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
+
 import json
 
 
-classes = ["BaseModel", "User"]
+classes = ["BaseModel", "User", "Place", "City", "State", "Amenity", "Review"]
 
 
 def check_arg(arg):
@@ -36,6 +42,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, arg):
+        """create command to create an instance of the class given\n"""
         if len(arg) <= 0:
             print("** class name missing **")
         elif arg not in classes:
@@ -46,6 +53,7 @@ class HBNBCommand(cmd.Cmd):
             print(new.id)
 
     def do_show(self, arg):
+        """show command to print the representation of the instance based on the class and id given\n"""
         if check_arg(arg) is False:
             my_list = arg.split(" ")
             key = my_list[0] + "." + my_list[1]
@@ -56,6 +64,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, arg):
+        """destroy command to destroy the instance based on the class and id given\n"""
         if check_arg(arg) is False:
             try:
                 my_list = arg.split(" ")
@@ -70,6 +79,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, arg):
+        """all command to print all objects saved if no class is passed, if class is passed
+        prints all objects from that class\n"""
         allobjs = storage.all()
         objlist = []
         if len(arg) <= 0:
@@ -86,6 +97,7 @@ class HBNBCommand(cmd.Cmd):
             print(objlist)
                 
     def do_update(self, arg):
+        """update command updates the object of class and id passed, with the attribute and value given\n"""
         if check_arg(arg) is False:
             my_list = arg.split(" ")
             key = my_list[0] + "." + my_list[1]

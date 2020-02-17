@@ -4,7 +4,7 @@ from models.base_model import BaseModel
 from datetime import datetime, date
 
 
-class User(BaseModel):
+class Place(BaseModel):
     def __init__(self, **kwargs):
         if len(kwargs) > 0:
             for k, v in kwargs.items():
@@ -13,8 +13,15 @@ class User(BaseModel):
                 elif k != "__class__":
                     setattr(self, k, v)
         else:
-            self.email = ""
-            self.password = ""
-            self.first_name = ""
-            self.last_name = ""
+            self.city_id = ""
+            self.user_id = ""
+            self.name = ""
+            self.description = ""
+            self.number_rooms = 0
+            self.number_bathrooms = 0
+            self.max_guest = 0
+            self.price_by_night = 0
+            self.latitude = 0.0
+            self.longitude = 0.0
+            self.amenity_ids = []
             BaseModel.__init__(self)
