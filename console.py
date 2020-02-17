@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Comment """
+"""Program that contains the entry point of the command interpreter:"""
 import cmd
 from models import storage
 from models.base_model import BaseModel
@@ -9,7 +9,6 @@ from models.state import State
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
-
 import json
 
 
@@ -17,6 +16,7 @@ classes = ["BaseModel", "User", "Place", "City", "State", "Amenity", "Review"]
 
 
 def check_arg(arg):
+    """check for the arg to print if something is missing"""
     my_list = arg.split(" ")
     key = ""
     if len(arg) < 1:
@@ -32,6 +32,7 @@ def check_arg(arg):
         return False
 
 class HBNBCommand(cmd.Cmd):
+    """Class HBNBCommand"""
     prompt = "(hbnb) "
     def do_EOF(self, line):
         """EOF command to exit the program\n"""
@@ -42,7 +43,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, arg):
-        """create command to create an instance of the class given\n"""
+        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id\n"""
         if len(arg) <= 0:
             print("** class name missing **")
         elif arg not in classes:
@@ -53,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
             print(new.id)
 
     def do_show(self, arg):
-        """show command to print the representation of the instance based on the class and id given\n"""
+        """Prints the string representation of an instance based on the class name and id\n"""
         if check_arg(arg) is False:
             my_list = arg.split(" ")
             key = my_list[0] + "." + my_list[1]
@@ -64,7 +65,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, arg):
-        """destroy command to destroy the instance based on the class and id given\n"""
+        """Deletes an instance based on the class name and id (save the change into the JSON file).\n"""
         if check_arg(arg) is False:
             try:
                 my_list = arg.split(" ")
@@ -79,8 +80,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, arg):
-        """all command to print all objects saved if no class is passed, if class is passed
-        prints all objects from that class\n"""
+        """Prints all string representation of all instances based or not on the class name.\n"""
         allobjs = storage.all()
         objlist = []
         if len(arg) <= 0:
@@ -97,7 +97,7 @@ class HBNBCommand(cmd.Cmd):
             print(objlist)
                 
     def do_update(self, arg):
-        """update command updates the object of class and id passed, with the attribute and value given\n"""
+        """Updates an instance based on the class name and id by adding or updating attribute (save the change into the JSON file).\n"""
         if check_arg(arg) is False:
             my_list = arg.split(" ")
             key = my_list[0] + "." + my_list[1]
