@@ -6,6 +6,7 @@ import json
 import os.path as path
 import models
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -24,7 +25,7 @@ class FileStorage:
         with open(self.__file_path, mode="w", encoding='UTF-8') as f:
             for k, v in self.__objects.items():
                 new_dictionary[k] = v.to_dict()
-            json.dump(new_dictionary, f, indent="\t")
+            json.dump(new_dictionary, f)
 
     def reload(self):
         if path.isfile(self.__file_path):

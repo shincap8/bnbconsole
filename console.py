@@ -3,7 +3,12 @@
 import cmd
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 import json
+
+
+classes = ["BaseModel", "User"]
+
 
 def check_arg(arg):
     my_list = arg.split(" ")
@@ -11,7 +16,7 @@ def check_arg(arg):
     if len(arg) < 1:
         print("** class name missing **")
         return True
-    elif my_list[0] != "BaseModel":
+    elif my_list[0] not in classes:
         print("** class doesn't exist **")
         return True
     elif len(my_list) < 2:
@@ -33,10 +38,10 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, arg):
         if len(arg) <= 0:
             print("** class name missing **")
-        if arg != "BaseModel":
+        elif arg not in classes:
             print("** class doesn't exist **")
         else:
-            new = BaseModel()
+            new = eval(arg)()
             new.save()
             print(new.id)
 
@@ -71,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
             for k, v in allobjs.items():
                 objlist.append(str(v))
             print(objlist)
-        elif arg != "BaseModel":
+        elif arg not in classes:
             print("** class doesn't exist **")
         else:
             for k, v in allobjs.items():
