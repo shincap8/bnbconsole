@@ -10,6 +10,7 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 import json
+import re
 
 
 classes = ["BaseModel", "User", "Place", "City", "State", "Amenity", "Review"]
@@ -35,6 +36,27 @@ def check_arg(arg):
 class HBNBCommand(cmd.Cmd):
     """Class HBNBCommand"""
     prompt = "(hbnb) "
+
+    def precmd(self, line):
+        """This method is called after the line has been input but before
+            it has been interpreted. If you want to modify the input line
+            before execution (for example, variable substitution) do it here.
+        """
+        if "." in line:
+            args = re.split('\.|\(|\)', line)
+            line = args[1] + " " + args[0]
+            if "count" in args:
+                count(args[0])
+        return line
+
+    def count(obj):
+        counter = 0
+        allobjs = storage.all()
+        for k, v in allobjs.items():
+            allclass = (k.split(".")[0])
+            if allclass == obj:
+                counter += 1
+        print(counter)
 
     def do_EOF(self, line):
         """EOF command to exit the program\n"""
