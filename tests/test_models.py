@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Test Rectangle"""
+"""Test Console"""
 import unittest
 from models.base_model import BaseModel
 from models.city import City
